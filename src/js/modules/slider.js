@@ -54,7 +54,7 @@ class Slider {
                 this.slideIndex = 1;
                 this.showSlides(this.slideIndex);
             });
-            // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии
+            // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
         });
 
         this.showSlides(this.slideIndex);
