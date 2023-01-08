@@ -2,6 +2,7 @@ import { MainSlider } from "./modules/slider/slider-main";
 import { MiniSlider } from "./modules/slider/slider-mini";
 import { Difference } from "./modules/difference";
 import { VideoPlayer } from "./modules/playVideo";
+import { Form } from "./modules/forms";
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider =  new MainSlider({btns: '.next', container: '.page'});  // экземпляр класса
@@ -34,7 +35,9 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     feedSlider.init();
 
-    new Difference('.officerold', '.officernew', '.officer__card-item').init()
+    new Difference('.officerold', '.officernew', '.officer__card-item').init();
+
+    new Form('.form').init();
 
     const player = new VideoPlayer('.showup .play', '.overlay');
     //player.init();
