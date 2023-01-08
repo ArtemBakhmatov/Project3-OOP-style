@@ -5029,6 +5029,11 @@ window.addEventListener('DOMContentLoaded', function () {
   }); // экземпляр класса
 
   slider.render();
+  var modulePageSlider = new _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__["MainSlider"]({
+    container: '.moduleapp',
+    btns: '.next'
+  });
+  modulePageSlider.render();
   var showUpSlider = new _modules_slider_slider_mini__WEBPACK_IMPORTED_MODULE_1__["MiniSlider"]({
     container: '.showup__content-slider',
     prev: '.showup__prev',
@@ -5553,28 +5558,51 @@ function (_Slider) {
       this.showSlides(this.slideIndex += n);
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "bindTriggers",
+    value: function bindTriggers() {
       var _this2 = this;
 
-      try {
+      this.btns.forEach(function (item) {
+        item.addEventListener('click', function () {
+          _this2.plusSlides(1);
+        });
+        item.parentNode.previousElementSibling.addEventListener('click', function (event) {
+          event.preventDefault();
+          _this2.slideIndex = 1;
+
+          _this2.showSlides(_this2.slideIndex);
+        }); // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
+      });
+      document.querySelectorAll('.prevmodule').forEach(function (item) {
+        item.addEventListener('click', function () {
+          event.stopPropagation();
+          event.preventDefault();
+
+          _this2.plusSlides(-1);
+        });
+      });
+      document.querySelectorAll('.nextmodule').forEach(function (item) {
+        item.addEventListener('click', function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+
+          _this2.plusSlides(1); // event.stopPropagation(); -> он нужен тут чтобы событие сработало один раз, так как 
+          // класс этого item совпадает с другим, получается событие сработает несколько раз
+
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.container) {
         try {
           this.hanson = document.querySelector('.hanson');
         } catch (e) {}
 
-        this.btns.forEach(function (item) {
-          item.addEventListener('click', function () {
-            _this2.plusSlides(1);
-          });
-          item.parentNode.previousElementSibling.addEventListener('click', function (event) {
-            event.preventDefault();
-            _this2.slideIndex = 1;
-
-            _this2.showSlides(_this2.slideIndex);
-          }); // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
-        });
         this.showSlides(this.slideIndex);
-      } catch (e) {}
+        this.bindTriggers();
+      }
     }
   }]);
 

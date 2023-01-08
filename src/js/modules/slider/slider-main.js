@@ -38,27 +38,50 @@ class MainSlider extends Slider {
         this.showSlides(this.slideIndex += n);
     }
 
+    bindTriggers() {
+        this.btns.forEach(item => {
+            item.addEventListener('click', () => {
+                this.plusSlides(1);
+            });
+
+            item.parentNode.previousElementSibling.addEventListener('click', (event) => {
+                event.preventDefault();
+                this.slideIndex = 1;
+                this.showSlides(this.slideIndex);
+            });
+            // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
+        });
+
+        document.querySelectorAll('.prevmodule').forEach(item => {
+            item.addEventListener('click', () => {
+                event.stopPropagation(); 
+                event.preventDefault();
+                this.plusSlides(-1);
+            });
+        });
+
+        document.querySelectorAll('.nextmodule').forEach(item => {
+            item.addEventListener('click', (event) => {
+                event.stopPropagation(); 
+                event.preventDefault();
+                this.plusSlides(1);
+
+                // event.stopPropagation(); -> он нужен тут чтобы событие сработало один раз, так как 
+                // класс этого item совпадает с другим, получается событие сработает несколько раз
+            });
+        });
+    }
+
     render() {
-        try {
+        if (this.container) {
             try {
                 this.hanson = document.querySelector('.hanson');
             } catch(e){}
     
-            this.btns.forEach(item => {
-                item.addEventListener('click', () => {
-                    this.plusSlides(1);
-                });
-    
-                item.parentNode.previousElementSibling.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    this.slideIndex = 1;
-                    this.showSlides(this.slideIndex);
-                });
-                // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
-            });
-    
             this.showSlides(this.slideIndex);
-        } catch (e) {}
+            this.bindTriggers();
+            
+        } 
     }
 }
 
