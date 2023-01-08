@@ -40,23 +40,25 @@ class MainSlider extends Slider {
 
     render() {
         try {
-            this.hanson = document.querySelector('.hanson');
-        } catch(e){}
-
-        this.btns.forEach(item => {
-            item.addEventListener('click', () => {
-                this.plusSlides(1);
+            try {
+                this.hanson = document.querySelector('.hanson');
+            } catch(e){}
+    
+            this.btns.forEach(item => {
+                item.addEventListener('click', () => {
+                    this.plusSlides(1);
+                });
+    
+                item.parentNode.previousElementSibling.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    this.slideIndex = 1;
+                    this.showSlides(this.slideIndex);
+                });
+                // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
             });
-
-            item.parentNode.previousElementSibling.addEventListener('click', (event) => {
-                event.preventDefault();
-                this.slideIndex = 1;
-                this.showSlides(this.slideIndex);
-            });
-            // parentNode.previousElementSibling -> Обращаемся на элемент выше по иерархии(нажимаем на логотип)
-        });
-
-        this.showSlides(this.slideIndex);
+    
+            this.showSlides(this.slideIndex);
+        } catch (e) {}
     }
 }
 
