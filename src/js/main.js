@@ -4,6 +4,7 @@ import { Difference } from "./modules/difference";
 import { VideoPlayer } from "./modules/playVideo";
 import { Form } from "./modules/forms";
 import { ShowInfo } from "./modules/showInfo";
+import { Download } from "./modules/download";
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider =  new MainSlider({btns: '.next', container: '.page'});  // экземпляр класса
@@ -44,6 +45,8 @@ window.addEventListener('DOMContentLoaded', () => {
     new Form('.form').init();
 
     new ShowInfo('.plus__content').init();
+
+    new Download('.download').init();
 
     new VideoPlayer('.showup .play', '.overlay').init();
     new VideoPlayer('.module__video-item .play', '.overlay').init();
